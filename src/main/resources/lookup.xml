@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean name="helper"
+          class="spring.ch3.MyHelper"
+          scope="prototype"
+    />
+
+    <bean name="abstractLookup"
+          class="spring.ch3.AbstractLookupDemoBean">
+        <lookup-method name="getHelper" bean="helper"/>
+    </bean>
+
+    <bean name="standardLookup"
+          class="spring.ch3.StandardLookupDemoBean">
+        <replaced-method name="doSomething" replacer="methodReplacer"/>
+        <property name="helper">
+            <ref bean="helper"/>
+        </property>
+    </bean>
+
+    <bean name="methodReplacer"
+          class="spring.ch3.MyMethodReplacer"/>
+
+
+
+</beans>

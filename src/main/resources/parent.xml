@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="spring"/>
+
+    <bean id="injectBean"
+          class="java.lang.String"
+          c:_0="Bean in Parent"/>
+
+    <util:map id="map" map-class="java.util.HashMap">
+        <entry key="first">
+            <value>Hello World</value>
+        </entry>
+        <entry key="second">
+            <ref bean="injectBean"/>
+        </entry>
+    </util:map>
+
+    <util:list id="list" list-class="java.util.ArrayList">
+        <value>hello world</value>
+        <ref bean="injectBean"/>
+    </util:list>
+
+    <util:set id="set" set-class="java.util.HashSet">
+        <value>hello World</value>
+        <ref bean="injectBean"/>
+    </util:set>
+
+</beans>
