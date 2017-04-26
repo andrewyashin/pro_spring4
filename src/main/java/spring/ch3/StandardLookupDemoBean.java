@@ -17,6 +17,6 @@ public class StandardLookupDemoBean implements DemoBean {
 
     @Override
     public void doSomething() {
-        helper.doSomothingUseful();
+        helper.doSomethingUseful();
     }
 }

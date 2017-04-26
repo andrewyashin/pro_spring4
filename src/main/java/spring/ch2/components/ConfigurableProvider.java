@@ -9,11 +9,11 @@ import spring.ch2.interfaces.MessageProvider;
 /**
  * Created by andrew_yashin on 4/23/17.
  */
-@Service("configurable_provider")
+@Service
 public class ConfigurableProvider implements MessageProvider{
     private String message;
 
-    @Autowired
+
     public void setMessage(String message) {
         this.message = message;
     }

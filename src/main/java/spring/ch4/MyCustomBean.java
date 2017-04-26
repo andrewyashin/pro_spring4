@@ -1,9 +1,9 @@
 package spring.ch4;
 
 import org.springframework.beans.factory.BeanNameAware;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ import javax.annotation.PreDestroy;
 
 @Component
 @Scope("prototype")
-public class MyCustomBean implements BeanNameAware {
+public class MyCustomBean implements BeanNameAware, InitializingBean, DisposableBean {
     private String id;
     private String beanName;
 
@@ -48,12 +48,23 @@ public class MyCustomBean implements BeanNameAware {
         System.out.println(beanName + " = " + id);
     }
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        indInit();
+    }
 
     public static void main(String[] args) {
-        ApplicationContext context =
+        GenericXmlApplicationContext context =
                 new GenericXmlApplicationContext("ch4.xml");
+        context.registerShutdownHook();
 
         MyCustomBean customBean = (MyCustomBean) context.getBean("customBean");
         customBean.printBeanAndId();
+
+        MessageDigest messageDigest = (MessageDigest) context.getBean("standardMessageFactory");
+        System.out.println(messageDigest.getAlgorithm());
+
+        MessageDigest messageDigest1 = (MessageDigest) context.getBean("shaMessageFactory");
+        System.out.println(messageDigest1.getAlgorithm());
     }
 }

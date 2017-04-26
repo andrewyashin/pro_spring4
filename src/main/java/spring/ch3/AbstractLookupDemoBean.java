@@ -8,6 +8,6 @@ public abstract class AbstractLookupDemoBean implements DemoBean{
 
     @Override
     public void doSomething() {
-        getHelper().doSomothingUseful();
+        getHelper().doSomethingUseful();
     }
 }

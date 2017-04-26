@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 /**
  * Created by andrew_yashin on 4/22/17.
  */
-@Service(value = "renderer")
+@Service
 public class StandardOutputRenderer implements MessageRenderer{
     MessageProvider provider;
 
@@ -19,7 +19,6 @@ public class StandardOutputRenderer implements MessageRenderer{
     }
 
     @Override
-    @Resource(name = "configurable_provider")
     public void setMessageProvider(MessageProvider provider) {
         this.provider = provider;
     }
