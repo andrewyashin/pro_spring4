@@ -1,5 +1,6 @@
 package spring.ch5.aop_annotation;
 
+<<<<<<< HEAD
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -41,4 +42,10 @@ public class AdviceForCar {
 
         return object;
     }
+=======
+/**
+ * Created by andrew_yashin on 5/5/17.
+ */
+public class AdviceForCar {
+>>>>>>> 540fbf329480f1336e85b6a8d7c70207c534ad21
 }
