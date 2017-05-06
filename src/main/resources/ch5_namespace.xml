@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="human"
+          class="spring.ch5.proxy_bean_factory.Human">
+        <property name="name" value="Andrew"/>
+        <property name="age" value="34"/>
+    </bean>
+
+    <bean id="user"
+          class="spring.ch5.proxy_bean_factory.User">
+        <property name="human" ref="human"/>
+    </bean>
+
+    <bean id="beforeAdvice"
+          class="spring.ch5.aop_namespace.AdviceHuman"/>
+
+    <aop:config>
+        <aop:pointcut id="getNameExecution" expression="execution(* foo(int))
+            and args(intValue)"/>
+
+        <aop:aspect ref="beforeAdvice">
+            <aop:before pointcut-ref="getNameExecution"
+                        method="before"/>
+
+            <aop:around method="around"
+                        pointcut-ref="getNameExecution"/>
+
+        </aop:aspect>
+    </aop:config>
+</beans>

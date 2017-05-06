@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="humanTarget"
+          class="spring.ch5.proxy_bean_factory.Human">
+        <property name="age" value="3"/>
+        <property name="name" value="Andrew"/>
+    </bean>
+
+    <bean id="human1"
+          class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target">
+            <ref bean="humanTarget"/>
+        </property>
+        <property name="interceptorNames">
+            <list>
+                <value>advice</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="human2"
+          class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target">
+            <ref bean="humanTarget"/>
+        </property>
+        <property name="interceptorNames">
+            <list>
+                <value>advisor</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="user1"
+          class="spring.ch5.proxy_bean_factory.User">
+        <property name="human" ref="human1"/>
+    </bean>
+
+    <bean id="user2"
+          class="spring.ch5.proxy_bean_factory.User">
+        <property name="human" ref="human2"/>
+    </bean>
+
+    <bean id="user3"
+          class="spring.ch5.proxy_bean_factory.User">
+        <property name="human" ref="humanTarget"/>
+    </bean>
+
+    <bean id="advice"
+          class="spring.ch5.proxy_bean_factory.BeforeHuman"/>
+
+    <bean id="advisor"
+          class="org.springframework.aop.support.DefaultPointcutAdvisor">
+
+        <property name="advice">
+            <ref bean="advice"/>
+        </property>
+
+        <property name="pointcut">
+            <bean id="pointcut1"
+                  class="org.springframework.aop.aspectj.AspectJExpressionPointcut">
+                <property name="expression">
+                    <value>execution(* get*(..))</value>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    
+</beans>
